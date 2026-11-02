@@ -1,5 +1,535 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thorsten Schaedler · Data Science, Analytics & AI</title>
+<meta name="description" content="Portfolio of Thorsten Schaedler: Data Science, Business Intelligence, Power BI, Microsoft Fabric, C# and AI integration.">
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --text: #1a1d21;
+    --muted: #5b6370;
+    --accent: #0a66c2;
+    --accent-2: #14b8a6;
+    --border: #e3e5e8;
+    --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-2: #2dd4bf;
+      --border: #30363d;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-2: #2dd4bf;
+    --border: #30363d;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  section { padding: 5rem 1.5rem; max-width: 1080px; margin: 0 auto; }
+  h1, h2, h3 { line-height: 1.2; }
+  h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem;
+    color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .lead { color: var(--muted); max-width: 720px; margin-bottom: 2.5rem; }
+
+  /* Navigation */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .inner {
+    max-width: 1080px; margin: 0 auto; padding: 0.9rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  }
+  nav .brand { font-weight: 700; color: var(--text); }
+  nav .right { display: flex; align-items: center; gap: 1.25rem; }
+  nav ul { list-style: none; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  nav ul a { color: var(--muted); font-size: 0.95rem; }
+  nav ul a:hover { color: var(--text); text-decoration: none; }
+
+  .lang-toggle {
+    font: inherit; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 0.4rem 0.8rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .lang-toggle:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .lang-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Hero */
+  .hero {
+    padding-top: 6rem; padding-bottom: 5rem;
+    background:
+      radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 45%),
+      radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 40%);
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .hero .title {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--muted); margin-bottom: 1.5rem;
+  }
+  .hero .title strong { color: var(--text); }
+  .hero p.intro { max-width: 680px; color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem; }
+  .buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.7rem 1.2rem; border-radius: 999px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); text-decoration: none; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* Cards */
+  .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.6rem;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .card p { color: var(--muted); font-size: 0.95rem; }
+  .icon {
+    width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent); font-size: 1.3rem; margin-bottom: 1rem;
+  }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+  .tag {
+    font-size: 0.8rem; padding: 0.25rem 0.65rem; border-radius: 999px;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 1.75rem; }
+  .timeline::before {
+    content: ""; position: absolute; left: 0.45rem; top: 0.5rem; bottom: 0.5rem;
+    width: 2px; background: linear-gradient(var(--accent), var(--accent-2));
+  }
+  .timeline .item { position: relative; margin-bottom: 2rem; }
+  .timeline .item::before {
+    content: ""; position: absolute; left: -1.75rem; top: 0.45rem;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+  }
+  .timeline h3 { font-size: 1.15rem; }
+  .timeline .org { color: var(--accent); font-weight: 600; }
+  .timeline p { color: var(--muted); margin-top: 0.4rem; }
+
+  /* Projects */
+  .project { display: flex; flex-direction: column; }
+  .project .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+  .project .links { margin-top: auto; padding-top: 1rem; display: flex; gap: 1rem; font-weight: 600; font-size: 0.95rem; }
+
+  /* Certs */
+  .cert { display: flex; gap: 1rem; align-items: flex-start; }
+  .cert .badge {
+    flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+  }
+  .cert strong { display: block; }
+  .cert span { color: var(--muted); font-size: 0.9rem; }
+
+  /* Contact */
+  .contact {
+    text-align: center; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 24px; padding: 3.5rem 1.5rem; box-shadow: var(--shadow);
+  }
+  .contact p { color: var(--muted); max-width: 560px; margin: 0.75rem auto 2rem; }
+
+  footer {
+    text-align: center; color: var(--muted); font-size: 0.85rem;
+    padding: 2.5rem 1.5rem; border-top: 1px solid var(--border);
+  }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    nav ul { display: none; }
+    section { padding: 3.5rem 1.25rem; }
+  }
+</style>
+</head>
 <body>
-<h1>Under construction ... </h1>
+
+<nav>
+  <div class="inner">
+    <a class="brand" href="#top">TS</a>
+    <div class="right">
+      <ul>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#certs" data-i18n="nav.certs">Certifications</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">FR</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <section style="padding-top: 0; padding-bottom: 0;">
+    <p class="eyebrow reveal" data-i18n="hero.eyebrow">Portfolio</p>
+    <h1 class="reveal">Thorsten Schaedler</h1>
+    <p class="title reveal"><strong data-i18n="hero.degree">M.Sc. Business Administration</strong> · <span data-i18n="hero.focus">Data Science, Analytics &amp; AI</span></p>
+    <p class="intro reveal" data-i18n="hero.intro">I connect business thinking with technical execution: from business intelligence solutions and machine learning models to C# software and compliant AI systems.</p>
+    <div class="buttons reveal">
+      <a class="btn primary" href="https://www.linkedin.com/in/thorsten-schaedler-4246b032/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/ThorS5150" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="mailto:thorsten.schaedler@hotmail.com">Email</a>
+    </div>
+  </section>
+</header>
+
+<section id="about">
+  <p class="eyebrow reveal" data-i18n="about.eyebrow">Profile</p>
+  <h2 class="reveal" data-i18n="about.title">About me</h2>
+  <p class="lead reveal" data-i18n="about.text">Ten years as Business Manager and BI Analyst at a private school in Montreal, six years as Senior Consultant in vehicle development at Mercedes-Benz and Porsche in Stuttgart, and three years as project lead for software development. Today I focus on data science, analytics and AI engineering.</p>
+</section>
+
+<section id="skills">
+  <p class="eyebrow reveal" data-i18n="skills.eyebrow">Skills</p>
+  <h2 class="reveal" data-i18n="skills.title">What I deliver</h2>
+  <p class="lead reveal" data-i18n="skills.lead">From the data foundation through models to the dashboard, with a focus on results that can be used.</p>
+  <div class="grid">
+    <div class="card reveal">
+      <div class="icon">📊</div>
+      <h3 data-i18n="skills.ds.title">Data Science &amp; ML</h3>
+      <p data-i18n="skills.ds.text">Predictive analytics, forecasting, classification and clustering with Scikit-learn, TensorFlow and PyTorch.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">MLflow</span></div>
+    </div>
+    <div class="card reveal">
+      <div class="icon">📈</div>
+      <h3 data-i18n="skills.bi.title">Business Intelligence</h3>
+      <p data-i18n="skills.bi.text">Dashboards, reports and data models that speed up decisions.</p>
+      <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Tableau</span><span class="tag">Plotly / Dash</span></div>
+    </div>
+    <div class="card reveal">
+      <div class="icon">🧩</div>
+      <h3 data-i18n="skills.de.title">Data Engineering</h3>
+      <p data-i18n="skills.de.text">Pipelines, lakehouses and warehouses in Microsoft Fabric, plus SQL optimization.</p>
+      <div class="tags"><span class="tag">Microsoft Fabric</span><span class="tag">SQL Server</span><span class="tag">T-SQL</span><span class="tag">Great Expectations</span></div>
+    </div>
+    <div class="card reveal">
+      <div class="icon">💻</div>
+      <h3 data-i18n="skills.sw.title">Software Development</h3>
+      <p data-i18n="skills.sw.text">Applications with C# and .NET, web technologies and automation with Power Platform.</p>
+      <div class="tags"><span class="tag">C#</span><span class="tag">.NET</span><span class="tag">Power Platform</span><span class="tag">Web</span></div>
+    </div>
+    <div class="card reveal">
+      <div class="icon">🤖</div>
+      <h3 data-i18n="skills.ai.title">AI &amp; Compliance</h3>
+      <p data-i18n="skills.ai.text">LLM integration, fairness analysis and governance under ISO 42001, ISO 26262 and Law 25.</p>
+      <div class="tags"><span class="tag">LLM Integration</span><span class="tag">Fairlearn</span><span class="tag">ISO 42001</span><span class="tag">ISO 26262</span></div>
+    </div>
+    <div class="card reveal">
+      <div class="icon">🎯</div>
+      <h3 data-i18n="skills.lead.title">Strategy &amp; Project Leadership</h3>
+      <p data-i18n="skills.lead.text">Strategic management in the automotive industry and leadership of software projects.</p>
+      <div class="tags"><span class="tag">Strategic Management</span><span class="tag">Project Leadership</span><span class="tag">Functional Safety</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <p class="eyebrow reveal" data-i18n="exp.eyebrow">Experience</p>
+  <h2 class="reveal" data-i18n="exp.title">Career path</h2>
+  <p class="lead reveal" data-i18n="exp.lead">Three positions that connect technology, analysis and management.</p>
+  <div class="timeline">
+    <div class="item reveal">
+      <h3 data-i18n="exp.1.role">Business Manager &amp; BI Analyst</h3>
+      <div class="org" data-i18n="exp.1.org">Private school · Montreal, Canada</div>
+      <p data-i18n="exp.1.text">Ten years of responsibility for business processes and reporting. Built data-driven decision foundations with a focus on BI and key metrics.</p>
+    </div>
+    <div class="item reveal">
+      <h3 data-i18n="exp.2.role">Senior Consultant · Strategic Management &amp; Functional Safety Manager</h3>
+      <div class="org" data-i18n="exp.2.org">Mercedes-Benz &amp; Porsche · Stuttgart, Germany</div>
+      <p data-i18n="exp.2.text">Six years in vehicle development. Consulting on strategy and functional safety under ISO 26262.</p>
+    </div>
+    <div class="item reveal">
+      <h3 data-i18n="exp.3.role">Project Lead, Software Development</h3>
+      <div class="org" data-i18n="exp.3.org">Three years</div>
+      <p data-i18n="exp.3.text">Led software projects with C#, .NET and SQL Server.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <p class="eyebrow reveal" data-i18n="proj.eyebrow">Projects</p>
+  <h2 class="reveal" data-i18n="proj.title">Selected work</h2>
+  <p class="lead reveal" data-i18n="proj.lead">Portfolio projects focused on reproducible code and clear documentation.</p>
+  <div class="grid">
+    <div class="card project reveal">
+      <div class="meta">Microsoft Fabric · Power Platform · ML</div>
+      <h3 data-i18n="proj.1.title">Customer Churn with a Fabric Pipeline</h3>
+      <p data-i18n="proj.1.text">End-to-end pipeline in Microsoft Fabric with a machine learning model that predicts customer churn.</p>
+      <div class="tags"><span class="tag">Fabric</span><span class="tag">Python</span><span class="tag">Power Platform</span></div>
+      <div class="links"><a href="https://github.com/ThorS5150/CustomerChurn-FabricPipeline_with_ML" target="_blank" rel="noopener" data-i18n="proj.link">View code on GitHub →</a></div>
+    </div>
+    <div class="card project reveal">
+      <div class="meta">Forecasting · Automotive Retail</div>
+      <h3 data-i18n="proj.2.title">Demand Forecasting</h3>
+      <p data-i18n="proj.2.text">Demand forecast based on a self-generated dataset of automotive sales in Quebec.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Forecasting</span><span class="tag">Pandas</span></div>
+    </div>
+    <div class="card project reveal">
+      <div class="meta">Deep Learning</div>
+      <h3 data-i18n="proj.3.title">PyTorch Deep Learning</h3>
+      <p data-i18n="proj.3.text">Worked through and adapted notebooks on neural networks with PyTorch.</p>
+      <div class="tags"><span class="tag">PyTorch</span><span class="tag">Jupyter</span></div>
+      <div class="links"><a href="https://github.com/ThorS5150/pytorch-deep-learning" target="_blank" rel="noopener" data-i18n="proj.repo">Repository →</a></div>
+    </div>
+    <div class="card project reveal">
+      <div class="meta">Business Intelligence</div>
+      <h3 data-i18n="proj.4.title">Power BI Dashboards</h3>
+      <p data-i18n="proj.4.text">Dashboards with DAX measures, SQL connectivity and a clear reporting design.</p>
+      <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQL</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <p class="eyebrow reveal" data-i18n="cert.eyebrow">Certifications</p>
+  <h2 class="reveal" data-i18n="cert.title">Qualifications</h2>
+  <p class="lead reveal" data-i18n="cert.lead">Evidence of data, BI and AI governance skills.</p>
+  <div class="grid">
+    <div class="card cert reveal">
+      <div class="badge">⚡</div>
+      <div><strong>Microsoft Fabric Analytics Engineer</strong><span>Microsoft</span></div>
+    </div>
+    <div class="card cert reveal">
+      <div class="badge">📊</div>
+      <div><strong>Microsoft Power BI Data Analyst</strong><span>Microsoft</span></div>
+    </div>
+    <div class="card cert reveal">
+      <div class="badge">🛡️</div>
+      <div><strong>ISO 42001 Lead Implementer</strong><span data-i18n="cert.iso">AI management system</span></div>
+    </div>
+    <div class="card cert reveal">
+      <div class="badge">🧠</div>
+      <div><strong>IBM Data Science</strong><span>IBM</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact reveal">
+    <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+    <h2 data-i18n="contact.title">Let's talk</h2>
+    <p data-i18n="contact.text">I welcome inquiries about data science, BI, AI projects or new professional challenges.</p>
+    <div class="buttons" style="justify-content: center;">
+      <a class="btn primary" href="mailto:thorsten.schaedler@hotmail.com" data-i18n="contact.email">Write an email</a>
+      <a class="btn" href="https://www.linkedin.com/in/thorsten-schaedler-4246b032/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/ThorS5150" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer data-i18n="footer">© 2026 Thorsten Schaedler · Built with HTML, CSS and a bit of curiosity</footer>
+
+<script>
+  const translations = {
+    en: {
+      'nav.about': 'About', 'nav.skills': 'Skills', 'nav.experience': 'Experience',
+      'nav.projects': 'Projects', 'nav.certs': 'Certifications', 'nav.contact': 'Contact',
+      'hero.eyebrow': 'Portfolio',
+      'hero.degree': 'M.Sc. Business Administration',
+      'hero.focus': 'Data Science, Analytics & AI',
+      'hero.intro': 'I connect business thinking with technical execution: from business intelligence solutions and machine learning models to C# software and compliant AI systems.',
+      'about.eyebrow': 'Profile', 'about.title': 'About me',
+      'about.text': 'Ten years as Business Manager and BI Analyst at a private school in Montreal, six years as Senior Consultant in vehicle development at Mercedes-Benz and Porsche in Stuttgart, and three years as project lead for software development. Today I focus on data science, analytics and AI engineering.',
+      'skills.eyebrow': 'Skills', 'skills.title': 'What I deliver',
+      'skills.lead': 'From the data foundation through models to the dashboard, with a focus on results that can be used.',
+      'skills.ds.title': 'Data Science & ML',
+      'skills.ds.text': 'Predictive analytics, forecasting, classification and clustering with Scikit-learn, TensorFlow and PyTorch.',
+      'skills.bi.title': 'Business Intelligence',
+      'skills.bi.text': 'Dashboards, reports and data models that speed up decisions.',
+      'skills.de.title': 'Data Engineering',
+      'skills.de.text': 'Pipelines, lakehouses and warehouses in Microsoft Fabric, plus SQL optimization.',
+      'skills.sw.title': 'Software Development',
+      'skills.sw.text': 'Applications with C# and .NET, web technologies and automation with Power Platform.',
+      'skills.ai.title': 'AI & Compliance',
+      'skills.ai.text': 'LLM integration, fairness analysis and governance under ISO 42001, ISO 26262 and Law 25.',
+      'skills.lead.title': 'Strategy & Project Leadership',
+      'skills.lead.text': 'Strategic management in the automotive industry and leadership of software projects.',
+      'exp.eyebrow': 'Experience', 'exp.title': 'Career path',
+      'exp.lead': 'Three positions that connect technology, analysis and management.',
+      'exp.1.role': 'Business Manager & BI Analyst',
+      'exp.1.org': 'Private school · Montreal, Canada',
+      'exp.1.text': 'Ten years of responsibility for business processes and reporting. Built data-driven decision foundations with a focus on BI and key metrics.',
+      'exp.2.role': 'Senior Consultant · Strategic Management & Functional Safety Manager',
+      'exp.2.org': 'Mercedes-Benz & Porsche · Stuttgart, Germany',
+      'exp.2.text': 'Six years in vehicle development. Consulting on strategy and functional safety under ISO 26262.',
+      'exp.3.role': 'Project Lead, Software Development',
+      'exp.3.org': 'Three years',
+      'exp.3.text': 'Led software projects with C#, .NET and SQL Server.',
+      'proj.eyebrow': 'Projects', 'proj.title': 'Selected work',
+      'proj.lead': 'Portfolio projects focused on reproducible code and clear documentation.',
+      'proj.1.title': 'Customer Churn with a Fabric Pipeline',
+      'proj.1.text': 'End-to-end pipeline in Microsoft Fabric with a machine learning model that predicts customer churn.',
+      'proj.link': 'View code on GitHub →',
+      'proj.2.title': 'Demand Forecasting',
+      'proj.2.text': 'Demand forecast based on a self-generated dataset of automotive sales in Quebec.',
+      'proj.3.title': 'PyTorch Deep Learning',
+      'proj.3.text': 'Worked through and adapted notebooks on neural networks with PyTorch.',
+      'proj.repo': 'Repository →',
+      'proj.4.title': 'Power BI Dashboards',
+      'proj.4.text': 'Dashboards with DAX measures, SQL connectivity and a clear reporting design.',
+      'cert.eyebrow': 'Certifications', 'cert.title': 'Qualifications',
+      'cert.lead': 'Evidence of data, BI and AI governance skills.',
+      'cert.iso': 'AI management system',
+      'contact.eyebrow': 'Contact', 'contact.title': "Let's talk",
+      'contact.text': 'I welcome inquiries about data science, BI, AI projects or new professional challenges.',
+      'contact.email': 'Write an email',
+      'footer': '© 2026 Thorsten Schaedler · Built with HTML, CSS and a bit of curiosity'
+    },
+    fr: {
+      'nav.about': 'Profil', 'nav.skills': 'Compétences', 'nav.experience': 'Expérience',
+      'nav.projects': 'Projets', 'nav.certs': 'Certifications', 'nav.contact': 'Contact',
+      'hero.eyebrow': 'Portfolio',
+      'hero.degree': 'M.Sc. Administration des affaires',
+      'hero.focus': 'Science des données, analytique et IA',
+      'hero.intro': "Je relie la pensée d'affaires à la réalisation technique : des solutions d'intelligence d'affaires et des modèles d'apprentissage automatique aux logiciels en C# et aux systèmes d'IA conformes.",
+      'about.eyebrow': 'Profil', 'about.title': 'À propos de moi',
+      'about.text': "Dix ans comme gestionnaire d'affaires et analyste BI dans une école privée à Montréal, six ans comme consultant senior en développement de véhicules chez Mercedes-Benz et Porsche à Stuttgart, et trois ans comme chef de projet en développement logiciel. Aujourd'hui, je me concentre sur la science des données, l'analytique et l'ingénierie de l'IA.",
+      'skills.eyebrow': 'Compétences', 'skills.title': 'Ce que je livre',
+      'skills.lead': "De la base de données aux modèles jusqu'au tableau de bord, avec un accent sur des résultats exploitables.",
+      'skills.ds.title': 'Science des données et AA',
+      'skills.ds.text': "Analytique prédictive, prévision, classification et regroupement avec Scikit-learn, TensorFlow et PyTorch.",
+      'skills.bi.title': "Intelligence d'affaires",
+      'skills.bi.text': "Tableaux de bord, rapports et modèles de données qui accélèrent les décisions.",
+      'skills.de.title': 'Ingénierie des données',
+      'skills.de.text': "Pipelines, lakehouses et entrepôts dans Microsoft Fabric, ainsi que l'optimisation SQL.",
+      'skills.sw.title': 'Développement logiciel',
+      'skills.sw.text': "Applications en C# et .NET, technologies web et automatisation avec Power Platform.",
+      'skills.ai.title': 'IA et conformité',
+      'skills.ai.text': "Intégration de LLM, analyse d'équité et gouvernance selon ISO 42001, ISO 26262 et la Loi 25.",
+      'skills.lead.title': 'Stratégie et gestion de projet',
+      'skills.lead.text': "Gestion stratégique dans l'industrie automobile et direction de projets logiciels.",
+      'exp.eyebrow': 'Expérience', 'exp.title': 'Parcours professionnel',
+      'exp.lead': 'Trois postes qui relient technologie, analyse et gestion.',
+      'exp.1.role': "Gestionnaire d'affaires et analyste BI",
+      'exp.1.org': 'École privée · Montréal, Canada',
+      'exp.1.text': "Dix ans de responsabilité pour les processus d'affaires et la production de rapports. Mise en place de bases décisionnelles axées sur les données, avec un accent sur la BI et les indicateurs clés.",
+      'exp.2.role': 'Consultant senior · Gestion stratégique et responsable de la sécurité fonctionnelle',
+      'exp.2.org': 'Mercedes-Benz et Porsche · Stuttgart, Allemagne',
+      'exp.2.text': "Six ans en développement de véhicules. Conseil en stratégie et en sécurité fonctionnelle selon ISO 26262.",
+      'exp.3.role': 'Chef de projet, développement logiciel',
+      'exp.3.org': 'Trois ans',
+      'exp.3.text': "Direction de projets logiciels avec C#, .NET et SQL Server.",
+      'proj.eyebrow': 'Projets', 'proj.title': 'Travaux choisis',
+      'proj.lead': 'Projets de portfolio axés sur du code reproductible et une documentation claire.',
+      'proj.1.title': 'Attrition client avec un pipeline Fabric',
+      'proj.1.text': "Pipeline de bout en bout dans Microsoft Fabric avec un modèle d'apprentissage automatique qui prédit l'attrition des clients.",
+      'proj.link': 'Voir le code sur GitHub →',
+      'proj.2.title': 'Prévision de la demande',
+      'proj.2.text': "Prévision de la demande à partir d'un jeu de données généré moi-même sur les ventes automobiles au Québec.",
+      'proj.3.title': 'Apprentissage profond avec PyTorch',
+      'proj.3.text': "Notebooks sur les réseaux de neurones avec PyTorch, étudiés et adaptés.",
+      'proj.repo': 'Dépôt →',
+      'proj.4.title': 'Tableaux de bord Power BI',
+      'proj.4.text': "Tableaux de bord avec mesures DAX, connexion SQL et conception de rapports claire.",
+      'cert.eyebrow': 'Certifications', 'cert.title': 'Qualifications',
+      'cert.lead': "Preuves de compétences en données, en BI et en gouvernance de l'IA.",
+      'cert.iso': 'Système de management de l\'IA',
+      'contact.eyebrow': 'Contact', 'contact.title': 'Parlons-en',
+      'contact.text': "Je suis ouvert aux demandes concernant la science des données, la BI, les projets d'IA ou de nouveaux défis professionnels.",
+      'contact.email': 'Écrire un courriel',
+      'footer': '© 2026 Thorsten Schaedler · Réalisé avec HTML, CSS et un peu de curiosité'
+    }
+  };
+
+  const toggleBtn = document.getElementById('langToggle');
+
+  function applyLanguage(lang) {
+    const dict = translations[lang];
+    document.documentElement.lang = lang;
+    document.title = lang === 'fr'
+      ? 'Thorsten Schaedler · Science des données, analytique et IA'
+      : 'Thorsten Schaedler · Data Science, Analytics & AI';
+    document.querySelector('meta[name="description"]').setAttribute('content',
+      lang === 'fr'
+        ? "Portfolio de Thorsten Schaedler : science des données, intelligence d'affaires, Power BI, Microsoft Fabric, C# et intégration de l'IA."
+        : 'Portfolio of Thorsten Schaedler: Data Science, Business Intelligence, Power BI, Microsoft Fabric, C# and AI integration.');
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    // The button shows the language you will switch to
+    toggleBtn.textContent = lang === 'fr' ? 'EN' : 'FR';
+    toggleBtn.setAttribute('aria-label', lang === 'fr' ? 'Switch to English' : 'Passer en français');
+  }
+
+  function getInitialLanguage() {
+    try {
+      const saved = localStorage.getItem('portfolio-lang');
+      if (saved === 'en' || saved === 'fr') return saved;
+    } catch (e) { /* storage unavailable */ }
+    return (navigator.language || '').toLowerCase().startsWith('fr') ? 'fr' : 'en';
+  }
+
+  let currentLang = getInitialLanguage();
+  applyLanguage(currentLang);
+
+  toggleBtn.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'fr' : 'en';
+    try { localStorage.setItem('portfolio-lang', currentLang); } catch (e) { /* ignore */ }
+    applyLanguage(currentLang);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
 </body>
 </html>
