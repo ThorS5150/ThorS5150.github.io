@@ -164,6 +164,14 @@
   }
   .cert strong { display: block; }
   .cert span { color: var(--muted); font-size: 0.9rem; }
+  .cert-thumb {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  margin-top: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
 
   /* Contact */
   .contact {
@@ -338,9 +346,12 @@
   <p class="lead reveal" data-i18n="cert.lead">Evidence of data, BI and AI governance skills.</p>
   <div class="grid">
     <div class="card cert reveal">
-      <div class="badge">⚡</div>
-      <div><strong>Microsoft Fabric Analytics Eng</strong><span>Microsoft</span></div>
-      <div><img src="pictures/Microsoft%20Fabric%20Analytics%20Engineer.png" /></div>
+     <div>
+       <strong>Microsoft Fabric Analytics Engineer</strong>
+       <span>Microsoft</span>
+       <img class="cert-thumb" src="pictures/Microsoft%20Fabric%20Analytics%20Engineer.png"
+         alt="Zertifikat Microsoft Fabric Analytics Engineer" loading="lazy" />
+     </div>
     </div>
     <div class="card cert reveal">
       <div class="badge">⚡</div>
